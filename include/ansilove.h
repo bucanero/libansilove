@@ -70,6 +70,8 @@
 struct ansilove_png {
 	uint8_t *buffer;
 	int length; /* Match the parameter type of gdImagePngPtr() */
+	int sx;
+	int sy;
 };
 
 struct ansilove_ctx {

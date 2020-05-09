@@ -10,7 +10,7 @@
  * See LICENSE file for details.
  */
 
-#include <sys/mman.h>
+#include <stdlib.h>
 
 #include <stddef.h>
 #include "ansilove.h"
@@ -25,8 +25,8 @@ ansilove_clean(struct ansilove_ctx *ctx)
 	if (ctx->png.buffer != NULL)
 		gdFree(ctx->png.buffer);
 
-	if (ctx->buffer != MAP_FAILED)
-		(void)munmap(ctx->buffer, ctx->maplen);
+	if (ctx->buffer != NULL)
+		free(ctx->buffer);
 
 	ctx->maplen = ctx->length = 0;
 	ctx->png.length = 0;

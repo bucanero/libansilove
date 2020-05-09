@@ -12,7 +12,7 @@
 
 #include <fcntl.h>
 #include <stddef.h>
-#include <sys/mman.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include "ansilove.h"
@@ -45,12 +45,13 @@ ansilove_loadfile(struct ansilove_ctx *ctx, char *input)
 	ctx->maplen = ctx->length = st.st_size;
 
 	/* mmap input file into memory */
-	ctx->buffer = mmap(NULL, ctx->maplen, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (ctx->buffer == MAP_FAILED) {
+	ctx->buffer = malloc(ctx->length);
+	if (ctx->buffer == NULL) {
 		ctx->error = ANSILOVE_MEMORY_ERROR;
 		close(fd);
 		return -1;
 	}
+	read(fd, ctx->buffer, ctx->length);
 
 	close(fd);
 

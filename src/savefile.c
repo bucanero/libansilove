@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include "ansilove.h"
+#include "svpng.h"
 
 int
 ansilove_savefile(struct ansilove_ctx *ctx, char *output)
@@ -26,7 +27,7 @@ ansilove_savefile(struct ansilove_ctx *ctx, char *output)
 	FILE *file = fopen(output, "wb");
 
 	if (file) {
-		fwrite(ctx->png.buffer, ctx->png.length, 1, file);
+		svpng(file, ctx->png.sx, ctx->png.sy, ctx->png.buffer, 1);
 		fclose(file);
 	} else {
 		ctx->error = ANSILOVE_FILE_WRITE_ERROR;

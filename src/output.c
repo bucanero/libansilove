@@ -26,7 +26,7 @@ output(struct ansilove_ctx *ctx, struct ansilove_options *options,
 		if (options->mode == ANSILOVE_MODE_TRANSPARENT)
 			gdImageColorTransparent(im_Source, 0);
 
-		ctx->png.buffer = gdImagePngPtr(im_Source, &ctx->png.length);
+		ctx->png.buffer = gdImagePngPtr(im_Source, &ctx->png.length, &ctx->png.sx, &ctx->png.sy);
 
 		gdImageDestroy(im_Source);
 	} else if (options->dos) {
@@ -43,7 +43,7 @@ output(struct ansilove_ctx *ctx, struct ansilove_options *options,
 		gdImageCopyResampled(im_DOS, im_Source, 0, 0, 0, 0,
 		    im_DOS->sx, im_DOS->sy, im_Source->sx, im_Source->sy);
 
-		ctx->png.buffer = gdImagePngPtr(im_DOS, &ctx->png.length);
+		ctx->png.buffer = gdImagePngPtr(im_DOS, &ctx->png.length, &ctx->png.sx, &ctx->png.sy);
 
 		gdImageDestroy(im_Source);
 		gdImageDestroy(im_DOS);
@@ -65,7 +65,7 @@ output(struct ansilove_ctx *ctx, struct ansilove_options *options,
 		if (options->mode == ANSILOVE_MODE_TRANSPARENT)
 			gdImageColorTransparent(im_Retina, 0);
 
-		ctx->png.buffer = gdImagePngPtr(im_Retina, &ctx->png.length);
+		ctx->png.buffer = gdImagePngPtr(im_Retina, &ctx->png.length, &ctx->png.sx, &ctx->png.sy);
 
 		gdImageDestroy(im_Source);
 		gdImageDestroy(im_Retina);
